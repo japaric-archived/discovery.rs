@@ -1,0 +1,26 @@
+language: rust
+
+env:
+  global:
+    - secure: Q8YuALqSqyk+CDbCceZfsYnhI0FgkULFyPQS5Wzl2QPyWmH+4DA8fZjXj1DgqO9l9DxyXcH/yUWd5qvtzFZo3prYn/hsGRgUj1So5Arqe5l58DtNVaz/bqkVGHCMCd2BCB5mUJ07Zn9azD5E2oPSvmCKFSyAIp/86V8bmaI5FOQ=
+
+before_install:
+  - sudo add-apt-repository ppa:terry.guo/gcc-arm-embedded -y
+  - sudo apt-get update
+
+install:
+  - sudo apt-get install -qq gcc-arm-none-eabi
+
+script:
+  - RUSTC_FLAGS=-O make
+  - ./check-line-length.sh
+
+after_success:
+  - '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && bash upload-docs.sh'
+
+branches:
+  only: master
+
+notifications:
+  email:
+    on_success: never
