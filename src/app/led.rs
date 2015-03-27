@@ -1,6 +1,8 @@
 #![feature(no_std)]
 #![no_std]
 
+//! Turn on the blue LED (PC8)
+
 extern crate stm32;
 
 #[no_mangle]

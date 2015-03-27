@@ -1,6 +1,9 @@
 #![feature(no_std)]
 #![no_std]
 
+//! Toggle the blue LED (PC8) at 1 Hz. The timing is handled by the TIM7 timer. The main thread
+//! sleeps most of the time, and only wakes up on TIM7's interrupts to toggle the LED.
+
 extern crate cortex;
 extern crate stm32;
 
@@ -61,7 +64,7 @@ pub fn main() {
     nvic.iser1.set({
         use cortex::nvic::iser1::prelude::*;
 
-        TIM7
+        _55  // TIM7
     });
 
     loop {
