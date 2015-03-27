@@ -8,6 +8,8 @@ extern crate core;
 extern crate cortex;
 extern crate stm32;
 
+use core::prelude::*;
+
 const CLOCK: u32 = 8_000_000;
 const BAUD_RATE: u32 = 115_200;
 
@@ -51,9 +53,9 @@ pub fn main() {
         _37  // USART1
     });
 
-    let message = b"Hello, world!\n\r";
+    let message = "Hello, world!\n\r";
 
-    for &byte in message {
+    for byte in message.bytes() {
         // enqueue byte in the transmit register
         usart1.dr.set(byte);
 
